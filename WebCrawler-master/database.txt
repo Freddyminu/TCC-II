@@ -1,0 +1,62 @@
+1) CREATE DATABASE venues_db;
+2) \c venues_db arthur
+3) CREATE USER "arthur";
+4) ALTER USER arthur WITH PASSWORD 'senha';
+5) ALTER USER arthur WITH SUPERUSER;
+6) \du
+7) ALTER SEQUENCE authors_author_id_seq RESTART WITH 1;
+
+
+CREATE TABLE venues (
+   venue_id  serial   PRIMARY KEY,
+   title       VARCHAR (500)  NOT NULL,
+   publisher   VARCHAR (100)  NOT NULL,
+   link        VARCHAR (250)  NOT NULL
+);
+
+CREATE TABLE articles (
+   article_id  serial   PRIMARY KEY,
+   title       VARCHAR  (1000),
+   abstract    VARCHAR  (70000),
+   pages       VARCHAR  (100),
+   date        VARCHAR  (100),
+   doi         VARCHAR  (100),
+   link        VARCHAR  (100),
+   tipo        VARCHAR  (100),
+
+   fk_venue  int   REFERENCES  venues  (venue_id)
+);
+
+CREATE TABLE keywords(
+   keyword_id  serial   PRIMARY KEY,
+   keyword     VARCHAR (500)  NOT NULL
+);
+
+CREATE TABLE articles_keywords (
+   fk_article  int                  REFERENCES  articles (article_id),
+   fk_keyword  int                  REFERENCES  keywords (keyword_id),
+   CONSTRAINT  pk_article_keywords  PRIMARY KEY (fk_article, fk_keyword)
+);
+
+CREATE TABLE citations (
+   citation_id   serial   PRIMARY KEY,
+   citation      VARCHAR (4000)  NOT NULL
+);
+
+CREATE TABLE articles_citations (
+   fk_article     int                 REFERENCES  articles    (article_id),
+   fk_citation    int                 REFERENCES  citations   (citation_id),
+   CONSTRAINT     pk_article_citation PRIMARY KEY (fk_article, fk_citation)
+);
+
+CREATE TABLE authors(
+   author_id   serial   PRIMARY KEY,
+   name        VARCHAR (250) NOT NULL,
+   institute   VARCHAR (600)
+);
+
+CREATE TABLE authors_articles(
+   fk_article  int   REFERENCES  articles (article_id),
+   fk_author   int   REFERENCES  authors (author_id),
+   CONSTRAINT  pk    PRIMARY KEY (fk_article, fk_author)
+);
