@@ -169,11 +169,11 @@ class Search extends React.Component {
 				<div> 
 					{/* <NavBar /> */}
 					
-					<div class="nav-bar">
+					<div className="nav-bar">
 						<Grid container spacing={0} >
 							<Grid item xs={8} />
 							<Grid item xs={1} >
-								<a href='/search'> <div class="highlight"> Busca </div> </a>
+								<a href='/search'> <div className="highlight"> Busca </div> </a>
 							</Grid>
 							<Grid item xs={1} >
 								<a href='/periodicos'> <div> Periódicos </div> </a>

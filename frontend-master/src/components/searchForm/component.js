@@ -8,80 +8,92 @@ import Grid from '@material-ui/core/Grid';
 
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import InputLabel from '@material-ui/core/InputLabel';
 
 // import EventIcon from '@material-ui/icons/Event';
 import SearchIcon from '@material-ui/icons/Search';
 // import TodayIcon from '@material-ui/icons/Today';
 
-function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBeginDate, setEndDate, setShowGraph, show_loading }){
+
+
+import InputUnstyled from '@mui/base/InputUnstyled';
+
+
+function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBeginDate, setEndDate, setShowGraph, show_loading }) {
 	return (
 		<Grid container spacing={2}>
 			<Grid item xs={1} />
 			<Grid item xs={10}>
 				<Paper elevation={2}>
-					<div class="search-body"> 
-						<form onSubmit={ runSearch }>
+					<div className="search-body">
+						<form onSubmit={runSearch}>
 							<Grid container spacing={2}>
-										<Grid item xs={12}>
-											<TextField 
-												id="busca" label="Palavras-chave *" 
-												type='text' 
-												name='q' 
-												variant="outlined" 
-												fullWidth
-												InputProps={{
-													endAdornment: <SearchIcon />
-												}}
-												InputLabelProps={{ shrink: true }}
-												onChange={ setSearchField } />
-										</Grid>
+								<Grid item xs={12}>
+									<TextField
+										id="busca" label="Palavras-chave *"
+										type='text'
+										name='q'
+										variant="outlined"
+										fullWidth
+										InputProps={{
+											endAdornment: <SearchIcon />
+										}}
+										InputLabelProps={{
+											shrink: true
+											
+										}}
+										onChange={setSearchField} />
 								</Grid>
+							</Grid>
+							<Grid container spacing={2}>
+								<Grid item xs={6}>
+									<TextField
 
-							<Grid container spacing={2}>
-								<Grid item xs={6}>
-									<TextField
 										id="autores" label="Autores"
-										type='text' 
-										name='author-filter' 
+										type='text'
+										name='author-filter'
 										variant="outlined"
 										fullWidth
 										InputLabelProps={{ shrink: true }}
-										onChange={ setAuthorField } />
+										onChange={setAuthorField} />
 								</Grid>
 								<Grid item xs={6}>
 									<TextField
+
 										id="venues" label="Periódicos/Eventos"
-										type='text' 
-										name='venue-filter' 
+										type='text'
+										name='venue-filter'
 										variant="outlined"
 										fullWidth
 										InputLabelProps={{ shrink: true }}
-										onChange={ setVenue } />
+										onChange={setVenue} />
 								</Grid>
 							</Grid>
 
 							<Grid container spacing={2}>
 								<Grid item xs={6}>
 									<TextField
+
 										id="begin-date-filter" label="Data de início"
-										type='month' 
-										name='begin-date-filter' 
+										type='month'
+										name='begin-date-filter'
 										variant="outlined"
 										fullWidth
 										InputLabelProps={{ shrink: true }}
-										onChange={ setBeginDate } />
+										onChange={setBeginDate} />
 								</Grid>
 
 								<Grid item xs={6}>
 									<TextField
+
 										id="end-date-filter" label="Data de fim"
-										type='month' 
+										type='month'
 										name='end-date-filter'
 										variant="outlined"
 										placeholder=''
 										fullWidth
 										InputLabelProps={{ shrink: true }}
-										onChange={ setEndDate } />
+										onChange={setEndDate} />
 								</Grid>
 							</Grid>
 
@@ -92,25 +104,25 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 											<Checkbox
 												onChange={setShowGraph}
 												name="check_graph"
-												color="primary"                                            
-											/> }
+												color="primary"
+											/>}
 										label="Mostrar rede de colaboração" />
-							</Grid>
+								</Grid>
 							</Grid>
 
 							<Grid container spacing={2}>
 								<Grid item xs={6} />
 								<Grid container item xs={6} spacing={1}>
-									<Grid item xs={6}/>
+									<Grid item xs={6} />
 									<Grid item xs={6}>
 										<Button
 											fullWidth
-											onClick={ runSearch } 
-											disabled={ show_loading }
+											onClick={runSearch}
+											disabled={show_loading}
 											color="primary"
 											variant="contained">
-												{ show_loading ? <CircularProgress color="white" size="30px"/> : null }
-												{ show_loading ? null : <span class="search-label"> BUSCAR </span> }
+											{show_loading ? <CircularProgress color="white" size="30px" /> : null}
+											{show_loading ? null : <span className="search-label"> BUSCAR </span>}
 										</Button>
 									</Grid>
 								</Grid>
@@ -120,7 +132,7 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 				</Paper>
 			</Grid>
 		</Grid>
-	)
+	);
 }
 
 export default SearchForm;
