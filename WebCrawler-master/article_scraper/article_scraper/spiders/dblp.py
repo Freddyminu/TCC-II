@@ -1,4 +1,4 @@
-# scrapy crawl dblp > output/x-artigos-2.links
+# scrapy crawl dblp > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/links/x-artigos-2.links
 import scrapy
 
 import json

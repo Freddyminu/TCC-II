@@ -12,7 +12,7 @@ from lxml import html
 def main():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/PegarLinksAPI/venues-ihc-3.txt'
+    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/PegarLinksAPI/venues-ihc-3 copy.txt'
     with open(filepath, 'r') as f:
         venues = [v.strip().lower() for v in f.readlines()]
 

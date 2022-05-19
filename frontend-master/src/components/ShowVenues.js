@@ -28,6 +28,7 @@ class ShowVenues extends Component {
 	}
 
 	search_venues(){
+		console.log("procurando venues")
 		fetch('http://localhost:4000/venues')
 		  .then(res => res.json())
 		  .then(

@@ -190,10 +190,13 @@ function search_article_metadata(res, user_query, count, author, venue, begin_da
     }
     where_search_field = where_search_field.join(' AND ');
     const where_date_field = pg_date_filter(begin_date, end_date);
+
+    console.log(where_date_field)
+
     const where_author_field = pg_authors_filter(filter_authors);
     const where_venue_field = pg_venues_filter(filter_venues);
     
-    console.log(where_search_field); // tirei o comentario [FRED]
+    // console.log(where_search_field); 
 
     const author_subquery = `
     SELECT 
@@ -284,51 +287,13 @@ Original keyword_subquery
                 ON au.author_id = aa.fk_author ` : ''}
     WHERE
         (${where_search_field}) AND
+        (${where_date_field}) AND
         (${where_author_field}) AND
         (${where_venue_field})) as ArrumeiNaoSeiComoObrigadoJsonB
     `;
 
     /*
-    const select_query = `select distinct * from (
-    SELECT
-        jsonb_build_object(
-            'title', ar.title,
-            'abstract', ar.abstract,
-            'pages', ar.pages,
-            'date', ar.date, 
-            'doi', ar.doi,
-            'link', ar.link,
-            'tipo', ar.tipo,
-            'venue_title', ve.title,
-            'venue_publisher', ve.publisher,
-            'venue_link', ve.link,
-            'authors', (${author_subquery}),
-            'keywords', (${keyword_subquery}),
-            'references', (${references_subquery})
-        ) dados
-    FROM 
-        articles ar
-        INNER JOIN venues ve 
-            ON ve.venue_id = ar.fk_venue
-        INNER JOIN 
-            articles_keywords ak 
-            ON ak.fk_article = ar.article_id
-        INNER JOIN 
-            keywords kw
-            ON kw.keyword_id = ak.fk_keyword
-        ${flag_authors ? `
-            INNER JOIN
-                authors_articles aa
-                ON ar.article_id  = aa.fk_article 
-            INNER JOIN 
-                authors au
-                ON au.author_id = aa.fk_author ` : ''}
-    WHERE
-        (${where_search_field}) AND
-        (${where_author_field}) AND
-        (${where_venue_field})) as final
-    `;
-    \\ esse em cima eh o que funciona apenas sem data!!!
+
 
     SELECT
         json_build_object(
@@ -375,6 +340,7 @@ Original keyword_subquery
 
     console.log("Searching...") // ta dando erro dps daqui [FRED]
     pool.query(select_query, (err, results) => {
+        console.log(select_query) // debug [fred]
         if (err){
             console.log(err);
             res.json({
@@ -536,7 +502,6 @@ function pg_venues_filter(filter_venue){
 
 module.exports.log = log;
 module.exports.get_today = get_today;
-
 module.exports.search = search;
 module.exports.search_article_metadata = search_article_metadata;
 module.exports.search_venues = search_venues;

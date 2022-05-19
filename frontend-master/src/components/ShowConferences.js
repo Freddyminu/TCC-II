@@ -30,7 +30,8 @@ class ShowConferences extends Component {
 	}
 
 	search_conferences(){
-		fetch('http://187.107.118.105:4000/conferences')
+		console.log("procurando conferences")
+		fetch('http://localhost:4000/conferences') //fetch('http://187.107.118.105:4000/conferences') tava assim mudei [FRED]
 		  .then(res => res.json())
 		  .then(
 			(result) => {

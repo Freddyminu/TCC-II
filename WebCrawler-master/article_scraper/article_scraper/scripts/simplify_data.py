@@ -81,7 +81,7 @@ def main():
     db_from, db_to = setup()
     col_name = 'acm'
 
-    stats(db) # fred
+    #stats(db) # fred
     start = 23
     # for i in range(start, end, 1):
         # print('Progress:', i, '/', end)

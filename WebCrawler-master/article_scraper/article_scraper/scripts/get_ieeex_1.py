@@ -1,4 +1,4 @@
-# python3 get_ieeex_1.py >> ../output/ban/ieeex.data
+# python3 get_ieeex_1.py >> /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/ban/ieeex.data
 import json
 import logging, sys
 import re

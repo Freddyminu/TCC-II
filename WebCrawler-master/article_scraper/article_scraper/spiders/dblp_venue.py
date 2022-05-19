@@ -1,4 +1,4 @@
-# scrapy crawl dblp_venue > output/x-venues.links
+# scrapy crawl dblp_venue > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/links/x-venues.links
 import scrapy
 
 import json

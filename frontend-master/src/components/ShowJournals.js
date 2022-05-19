@@ -30,7 +30,7 @@ class ShowJournals extends Component {
 	}
 
 	search_journals(){
-		fetch('http://187.107.118.105:4000/journals')
+		fetch('http://localhost:4000/journals') // fetch('http://187.107.118.105:4000/journals') mudei [FRED]
 		  .then(res => res.json())
 		  .then(
 			(result) => {
