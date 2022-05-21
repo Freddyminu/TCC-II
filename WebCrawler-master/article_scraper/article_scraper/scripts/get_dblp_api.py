@@ -1,4 +1,6 @@
-# python3 get_dblp_api.py > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/PegarLinksAPI/journals-resultado-ihc-1.txt
+# python3 get_dblp_api.py > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/scripts/Resultado_do_getDBLP_api/DB.txt
+# ou
+# python3 get_dblp_api.py > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/scripts/Resultado_do_getDBLP_api/IHC.txt
 import json
 import logging, sys
 import re
@@ -12,7 +14,8 @@ from lxml import html
 def main():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/PegarLinksAPI/venues-ihc-3 copy.txt'
+    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/scripts/Entrada_do_getDBLP_api/BDTESTE.txt'
+    #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/scripts/Entrada_do_getDBLP_api/IHC.txt'
     with open(filepath, 'r') as f:
         venues = [v.strip().lower() for v in f.readlines()]
 
@@ -34,7 +37,8 @@ def main():
         if (int(d['hits']['@total']) == 0):
             continue
 
-        hits = d['hits']['hit']
+
+        hits = d['hits']['hit']   
         for h in hits:
             print_data(h)
         

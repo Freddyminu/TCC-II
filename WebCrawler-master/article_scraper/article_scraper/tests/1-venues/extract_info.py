@@ -1,3 +1,6 @@
+#python3 extract_info.py > outputDeExtractInfoDeBancodedados
+#ou
+#python3 extract_info.py > outputDeExtractInfoDeIHC
 import re
 import json
 
@@ -42,10 +45,11 @@ def get_data(fp, start, end, venue):
                 list(filter(lambda x: ('<ee>' in x) or ('<url>' in x), data))
             )
             if (venue in d['title'].lower()):
-                print(venue)
+                #print(venue)
                 print(json.dumps(d))
-                print('===========')
-            
+                #print(d['links'])
+                #print('===========')
+
 def print_data(lista):
     for l in lista:
         print(l)
@@ -55,12 +59,12 @@ def print_dict(d):
         print(key, '->', d[key])
 
 def main():
-    with open('venues-bd.txt', 'r') as f:
+    with open('/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input/bd/BD-venues.txt', 'r') as f:
         venues = [v.strip().lower() for v in f.readlines()]
 
-    filepath = "less.xml"
+    filepath = "/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/less.xml" # XML DO DBLP TU PEGA LA NO SITE DELES
     fp = open(filepath, 'r')
-    
+
     start = '<proceedings'
     end = '</proceedings'
     

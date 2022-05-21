@@ -1,3 +1,17 @@
+# [FRED]
+# python3 get_dblp_api.py > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/scripts/Resultado_do_getDBLP_api/DB.txt
+# ou
+# python3 get_dblp_api.py > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/scripts/Resultado_do_getDBLP_api/IHC.txt
+# [FRED]
+
+# [FRED]
+#python3 extract_info.py > outputDeExtractInfoDeBancodedados
+#ou
+#python3 extract_info.py > outputDeExtractInfoDeIHC
+# [FRED]
+
+
+
 import json
 import logging, sys
 import re
@@ -10,8 +24,11 @@ from lxml import html
 
 def main():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-
-    with open('venues-bd.txt', 'r') as f:
+    # [FRED]
+    # filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input - antigo/bd - antigo/BD-venues.txt'
+    # filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input - antigo/ihc - antigo/IHC-venues.txt'
+    # [FRED]
+    with open('/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input - antigo/bd - antigo/BD-venues.txt', 'r') as f:
         venues = [v.strip().lower() for v in f.readlines()]
 
     
@@ -26,7 +43,9 @@ def main():
         url = base + search + form
         print(url)
 
+        time.sleep(1)
         r = requests.get(url)
+
         d = r.json()['result']
 
 
@@ -48,8 +67,8 @@ def print_data(data):
 
     url = data['info']['url']
 
-    new_data['title'] = ht.unescape(data['info']['title'])
-    new_data['score'] = data['@score']
+    #new_data['title'] = ht.unescape(data['info']['title'])
+    #new_data['score'] = data['@score']
     new_data['url'] = get_url(url)
 
     print(json.dumps(new_data))
