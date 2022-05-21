@@ -1,4 +1,8 @@
 # scrapy crawl doi_dblp_1 > tests/1-venues/input/IHC-doi-artigos.links
+
+#[fred]
+# scrapy crawl doi_dblp_1 > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input/ihc/IHC-doi-artigos.links
+#[fred]
 import scrapy
 import json
 # import psycopg2
@@ -8,7 +12,7 @@ import html
 class IEEEX_Spider(scrapy.Spider):
     name = "doi_dblp_1"
 
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input/ihc/IHC-journals.links'
+    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input/bd/BD-journals.links'
     start_urls = []
     with open(filepath, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
