@@ -9,7 +9,7 @@ def imprimir(array):
         print(a)
 
 def estatistica(array):
-    filepath = 'BD-estatistica.txt'
+    filepath = 'Todos-estatistica.txt'
     fp = open(filepath, 'w')
 
     d   = {}
@@ -47,7 +47,7 @@ def estatistica(array):
     return ret
 
 def organiza(separado):
-    file_prefixo = 'BD-links/'
+    file_prefixo = 'Todos-links/'
 
     for key in separado:
         arquivo = file_prefixo + key.replace('.', '-') + '.links'
@@ -59,14 +59,14 @@ def organiza(separado):
         fp.close()
 
 def main():
-    filepath = 'input/bd/BD-final.links'
+    filepath = 'input/Todos-final.links'
     fp = open(filepath, 'r')
     links = fp.readlines()
     fp.close()
 
     links = list(map(lambda s : s.strip('\n'), links))
     alfabetico(links)
-    # links = tirar_duplicadas(links)
+    links = tirar_duplicadas(links)
     # imprimir(links)
     separado = estatistica(links)
     organiza(separado)

@@ -281,6 +281,6 @@ class ACM_Spider(scrapy.Spider):
 
         
         database = 'venues'
-        self.save(database, authors, article, publication)
+        #self.save(database, authors, article, publication)
         self.debug_print(authors, article, publication) # vai imprimir oq ta sendo pego no console durante o crawl
         

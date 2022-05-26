@@ -1,4 +1,4 @@
-# scrapy crawl springer_chapters > output/ban/springer-chapters.data
+# scrapy crawl springer_chapters > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/ban/springer-chapters.data
 import scrapy
 import logging
 import requests

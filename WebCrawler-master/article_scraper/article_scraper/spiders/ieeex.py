@@ -1,4 +1,4 @@
-# scrapy crawl ieeex > output/ban/ieeex.data
+# scrapy crawl ieeex > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/ban/ieeex.data
 import scrapy
 
 import html
@@ -353,5 +353,5 @@ class IEEEX_Spider(scrapy.Spider):
         
         
         database = 'venues' # tirei comentario pra extrair dados pro MONGODB [FRED]
-        self.save(database, authors, article, publication) # tirei comentario pra extrair dados pro MONGODB [FRED]
+        #self.save(database, authors, article, publication) # tirei comentario pra extrair dados pro MONGODB [FRED]
         self.debug_print(authors, article, publication)
