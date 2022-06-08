@@ -12,7 +12,7 @@ from pymongo import MongoClient
 class IEEEX_Spider(scrapy.Spider):
     name = "ieeex"
     
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/10-ieeex.links'
+    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/ieeexlinks'
     with open(filepath, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
 
@@ -308,7 +308,6 @@ class IEEEX_Spider(scrapy.Spider):
         self.save_authors(database, authors)
         self.save_publication(database, publication)
         self.save_article(database, article, publication)
-
         self.save_authors_articles(database, authors, article)
 
     def get_publication_id(self, database, publication):

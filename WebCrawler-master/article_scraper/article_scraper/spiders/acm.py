@@ -16,7 +16,7 @@ import pprint
 class ACM_Spider(scrapy.Spider):
     name = "acm"
 
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/links/x-artigos-2.links' #'/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/10-acm.links' 
+    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/acmlinks' #'/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/10-acm.links' 
     with open(filepath, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
     start_urls = list(filter(lambda url: not 'proceedings' in url, start_urls))
@@ -281,6 +281,6 @@ class ACM_Spider(scrapy.Spider):
 
         
         database = 'venues'
-        #self.save(database, authors, article, publication)
+        self.save(database, authors, article, publication)
         self.debug_print(authors, article, publication) # vai imprimir oq ta sendo pego no console durante o crawl
         

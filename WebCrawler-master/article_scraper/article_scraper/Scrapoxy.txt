@@ -1,0 +1,20 @@
+Default:
+
+    sudo docker run -e COMMANDER_PASSWORD='CHANGE_THIS_PASSWORD' \
+        -e PROVIDERS_AWSEC2_ACCESSKEYID='YOUR ACCESS KEY ID' \
+        -e PROVIDERS_AWSEC2_SECRETACCESSKEY='YOUR SECRET ACCESS KEY' \
+        -it -p 8888:8888 -p 8889:8889 fabienvauchelles/scrapoxy
+
+Com meus dados: 
+sudo docker run -e COMMANDER_PASSWORD='CHANGE_THIS_PASSWORD' \
+-e PROVIDERS_AWSEC2_ACCESSKEYID='AKIA3XNZCW2R7FIQKOX2' \
+-e PROVIDERS_AWSEC2_SECRETACCESSKEY='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' \
+-it -p 8888:8888 -p 8889:8889 fabienvauchelles/scrapoxy
+
+
+
+Dados do AWS:
+    Access Key ID:
+    AKIA3XNZCW2R7FIQKOX2
+    Secret Access Key:
+    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

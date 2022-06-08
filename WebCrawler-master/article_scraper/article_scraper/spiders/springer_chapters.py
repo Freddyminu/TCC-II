@@ -12,7 +12,7 @@ from scrapy.crawler import CrawlerProcess
 class ACM_Chapter_Spider(scrapy.Spider):
     name = "springer_chapters"
     
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/10-springer.links'
+    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
     with open(filepath, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
     start_urls = list(filter (lambda u: 'link.springer.com/chapter/' in u, start_urls))
