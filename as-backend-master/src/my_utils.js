@@ -22,7 +22,15 @@ function get_today() {
 
     return `2100-${mm}-01`;
 }
+const con = {
+    user: process.env.PG_USER,
+    password: process.env.PG_PSWD,
+    host: process.env.PG_HOST,
+    database: "venues_db",
+    port: process.env.PG_PORT
+  };
 
+/*
 const con = {
     user: process.env.PG_USER,
     password: process.env.PG_PSWD,
@@ -30,7 +38,17 @@ const con = {
     database: process.env.PG_DATABASE,
     port: process.env.PG_PORT
   };
-
+  
+  */
+/*
+  const con = {
+    user:"arthur",
+    password: "senha",
+    host: "localhost",
+    database: "venues_db",
+    port: 5731
+  };
+*/
 function search(res, user_query, count, author, venue, begin_date, end_date){ // o do mongoDB [FRED]
     const mongodb_host = 'mongodb://localhost:27017/';
     const db_name = 'venues_simple'; 
