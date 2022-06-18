@@ -26,6 +26,8 @@ function App() {
 				<Route exact path='/test'	    component={Test} />
 				<Redirect from='*' to='/' />
 			</Switch>
+			
+  		
 		</div>
 	)
 }

@@ -1,4 +1,5 @@
 # scrapy crawl ieeex > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/ban/ieeex.data
+from curses import meta
 import scrapy
 
 import html
@@ -14,24 +15,28 @@ class IEEEX_Spider(scrapy.Spider):
     
     filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/ieeexlinks'
     with open(filepath, "r") as f:
-        start_urls = [url.strip() for url in f.readlines()]
+        start_urls = [url.strip() for url in f.readlines()] 
+        #start_urls = ['https://ieeexplore.ieee.org/document/1028749'] # usado para correcao d codigo
 
     ##############################################
 
     def extract_metadata(self, response):
         metadata = []
         for raw_text in response.xpath("//script[@type='text/javascript']"):
+            #print("Raw text: ", raw_text)
             helper = raw_text.xpath("./text()").extract_first()
-            if ((helper is not None) and ("global.document.metadata" in helper)):
+            #print("helper: ", helper)
+            if ((helper is not None) and ("xplGlobal.document.metadata" in helper)):
                 metadata = helper.split('\n')
                 break
 
         for m in metadata:
-            if ('global.document.metadata' in m):
+            if ('xplGlobal.document.metadata' in m):
                 idx = m.find('{')
                 m = m[idx:]
                 meta = self.to_dict(m)
 
+                #print("METADATA IS:", meta)
                 return meta
         
         return ''
@@ -42,14 +47,17 @@ class IEEEX_Spider(scrapy.Spider):
 
     def extract_abstract(self, metadata):
         key = 'abstract'
-        
         if key not in metadata:
             return ""   
+
 
         abstract = metadata[key]
         abstract = abstract
         abstract = self.remove_tags(abstract)
         abstract = html.unescape(abstract)
+
+        #print("\n\n\n\nAbstract Extracted!: ", abstract)
+
         return abstract
 
     def extract_date(self, metadata):
@@ -144,7 +152,6 @@ class IEEEX_Spider(scrapy.Spider):
 
         authors = []
         raw_data = metadata[key]
-        
         for r in raw_data:
             author_info = dict()
 
@@ -152,13 +159,13 @@ class IEEEX_Spider(scrapy.Spider):
             author = self.remove_tags(author)
             author = html.unescape(author)
             author_info['name'] = author
-
             institute = r['affiliation']
-            institute = self.remove_tags(institute)
+            institute = self.remove_tags(str(institute)) 
             institute = html.unescape(institute)
             author_info['institute'] = institute
 
             authors.append( author_info )
+            
 
         return authors
 
@@ -219,12 +226,13 @@ class IEEEX_Spider(scrapy.Spider):
     ############################################## 
 
     def print_metadata(self, metadata):
+        print("\n\n\n\n\n")
         for key, value in metadata.items():
             print(key, '->', value)
 
     def debug_print(self, authors, article, publication):
-        print('Link:', article['link'])
-        print("Authors: ")
+        
+        print("\n\n\nAuthors: ")
         for a in authors:
             print( '\t' + a['name'] + ' (' + a['institute'] + ')' )
         print("\nTitle:", article['title'])
@@ -235,6 +243,7 @@ class IEEEX_Spider(scrapy.Spider):
         print("DOI:", article['doi'])
         print("Publication:", publication)
         print("Keywords:", article['keywords'])
+        print('Link:', article['link'])
         print("References:", article['references'])
 
         print("\n=========================")
@@ -329,6 +338,9 @@ class IEEEX_Spider(scrapy.Spider):
         if (metadata == ''):
             return
 
+
+        #self.print_metadata(metadata)
+
         article = {}
         authors = []
         publication = {}
@@ -346,11 +358,11 @@ class IEEEX_Spider(scrapy.Spider):
         authors     = self.extract_authors(metadata)
         publication = self.extract_publication(metadata)
 
-        article['authors'] = authors  # adicionado pelo [FRED]
-        article['venue'] = publication # adicionado pelo [FRED]
+        #article['authors'] = authors  # adicionado pelo [FRED]
+        #article['venue'] = publication # adicionado pelo [FRED]
 
         
         
         database = 'venues' # tirei comentario pra extrair dados pro MONGODB [FRED]
-        #self.save(database, authors, article, publication) # tirei comentario pra extrair dados pro MONGODB [FRED]
+        self.save(database, authors, article, publication) # tirei comentario pra extrair dados pro MONGODB [FRED]
         self.debug_print(authors, article, publication)

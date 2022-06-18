@@ -65,16 +65,16 @@ class ShowJournals extends Component {
 					<Grid container spacing={0} >
 						<Grid item xs={8} />
 						<Grid item xs={1} >
-							<a href='/search'> <div> Busca </div> </a>
+							<a href='/search'>Busca</a>
+						</Grid>
+						<Grid item xs={1} className="highlight" >
+							<a href='/periodicos'>Periódicos</a>
 						</Grid>
 						<Grid item xs={1} >
-							<a href='/periodicos'> <div class="highlight"> Periódicos </div> </a>
+							<a href='/eventos'>Eventos</a>
 						</Grid>
 						<Grid item xs={1} >
-							<a href='/eventos'>  <div> Eventos </div> </a>
-						</Grid>
-						<Grid item xs={1} >
-							<a href='/about' >   <div> Sobre </div>  </a>
+							<a href='/about' >Sobre</a>
 						</Grid>
 					</Grid>
 				</div>

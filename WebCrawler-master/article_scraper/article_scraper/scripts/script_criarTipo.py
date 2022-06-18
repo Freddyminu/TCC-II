@@ -1,4 +1,4 @@
-# python3 script_tipo.py
+# python3 script_criarTipo.py
 from psycopg2 import connect, sql
 
 from bson.objectid import ObjectId

@@ -245,7 +245,7 @@ def main():
     db = setup()
     stats(db)
 
-    col_name = 'acm' # aqui tem que por o nome dos dados coletados, no caso coloquei acm pois estou extraindo os dados da ACM vindos do mongoDB para o SQL
+    col_name = 'ieeex' # aqui tem que por o nome dos dados coletados, no caso coloquei acm pois estou extraindo os dados da ACM vindos do mongoDB para o SQL
     start = 0
     get_data(db, col_name, start)
 

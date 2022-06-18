@@ -172,22 +172,22 @@ class Search extends React.Component {
 					<div className="nav-bar">
 						<Grid container spacing={0} >
 							<Grid item xs={8} />
-							<Grid item xs={1} >
-								<a href='/search'> <div className="highlight"> Busca </div> </a>
+							<Grid item xs={1} className="highlight" >
+								<a href='/search'>  Busca  </a>
 							</Grid>
 							<Grid item xs={1} >
-								<a href='/periodicos'> <div> Periódicos </div> </a>
+								<a href='/periodicos'>  Periódicos </a>
 							</Grid>
 							<Grid item xs={1} >
-								<a href='/eventos'>  <div> Eventos </div> </a>
+								<a href='/eventos'>  Eventos  </a>
 							</Grid>
 							<Grid item xs={1} >
-								<a href='/about' >   <div> Sobre </div>  </a>
+								<a href='/about' >    Sobre   </a>
 							</Grid>
 						</Grid>
 					</div>
-
-					<SearchForm
+				
+					<SearchForm 
 						runSearch={e => this.runSearch(e)}
 						setSearchField={e => this.setSearchField(e)} 
 						setAuthorField={e => this.setAuthorField(e)} 
