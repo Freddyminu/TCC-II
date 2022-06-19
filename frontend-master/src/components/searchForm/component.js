@@ -13,8 +13,8 @@ import { IconButton } from '@mui/material';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 
-// <MicIcon fontSize="normal" />
-//<MicOff fontSize="normal" />
+// <MicIcon fontSize="small" />
+//<MicOff fontSize="small" />
 
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
@@ -112,9 +112,9 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 								<Grid item xs={1}>
 									
 									<div className="Sound"> 
-										{listening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="normal" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="normal" />}
-										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="normal" /> </IconButton>
-										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="normal" /></IconButton>
+										{listening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
+										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="small" /> </IconButton>
+										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="small" /></IconButton>
 									</div>
 								</Grid>
 								
@@ -134,9 +134,9 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 								</Grid>
 								<Grid item xs={1}>
 									<div className="Sound">
-										{listeningAuthors ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="normal" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="normal" />}
-										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="normal" /> </IconButton>
-										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="normal" /></IconButton>
+										{listeningAuthors ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
+										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="small" /> </IconButton>
+										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="small" /></IconButton>
 									</div>
 								</Grid>
 								<Grid item xs={5}>
@@ -154,9 +154,9 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 								</Grid>
 								<Grid item xs={1}>
 									<div className="Sound">
-										{listeningPeridicos ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1 , color: 'tomato' }} fontSize="normal" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="normal" />}
-										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="normal" /> </IconButton>
-										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="normal" /></IconButton>
+										{listeningPeridicos ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1 , color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
+										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="small" /> </IconButton>
+										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="small" /></IconButton>
 									</div>
 								</Grid>
 							</Grid>

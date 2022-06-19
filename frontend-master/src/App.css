@@ -388,6 +388,13 @@ label{
   border-radius: 3px;
 }
 
+.data-icon {
+  size: 10%;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
 .Sound:hover {
   border-color: #202021;
 }
