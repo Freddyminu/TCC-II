@@ -4,6 +4,7 @@ import logging
 import requests
 import unicodedata
 import json
+import os
 
 from bs4 import BeautifulSoup
 from pymongo import MongoClient #tirei comentario [FRED]
@@ -11,9 +12,12 @@ from scrapy.crawler import CrawlerProcess
 
 class ACM_Chapter_Spider(scrapy.Spider):
     name = "springer_chapters"
-    
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
-    with open(filepath, "r") as f:
+
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, '../input/All-links/springerlinks')
+   
+    #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
+    with open(filename, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
     start_urls = list(filter (lambda u: 'link.springer.com/chapter/' in u, start_urls))
 
@@ -287,5 +291,6 @@ class ACM_Chapter_Spider(scrapy.Spider):
         publication = self.extract_publication(response)
 
         database = 'venues' #tirei comentario [fred]
-        self.save(database, authors, article, publication) #tirei comentario [fred]
         self.debug_print(authors, article, publication) #tirei comentario [fred]
+        #self.save(database, authors, article, publication) #tirei comentario [fred]
+        

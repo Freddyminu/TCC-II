@@ -1,5 +1,7 @@
 # scrapy crawl dblp > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/links/x-artigos-2.links
 import scrapy
+from pathlib import Path
+import os
 
 import json
 import requests
@@ -15,9 +17,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 class DBLP_Spider(scrapy.Spider):
     name = "dblp"
 
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, '../output/links/x-veneus-2.links')
+   
+
     start_urls = []
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/links/x-veneus-2.links'
-    with open(filepath, "r") as f:
+    #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/links/x-veneus-2.links'
+    with open(filename, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
 
     # ======= Links =======

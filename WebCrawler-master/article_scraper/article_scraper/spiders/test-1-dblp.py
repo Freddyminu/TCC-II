@@ -5,16 +5,19 @@
 #[fred]
 import scrapy
 import json
+import os
 # import psycopg2
 import html
 
 
 class IEEEX_Spider(scrapy.Spider):
     name = "doi_dblp_1"
-
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input/bd/BD-journals.links'
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, '../tests/1-venues/input/bd/BD-journals.links')
+   
+    #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/tests/1-venues/input/bd/BD-journals.links'
     start_urls = []
-    with open(filepath, "r") as f:
+    with open(filename, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
 
     ##############################################

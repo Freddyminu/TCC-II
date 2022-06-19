@@ -23,7 +23,7 @@ function get_today() {
     return `2100-${mm}-01`;
 }
 const con = {
-    user: process.env.PG_USER,
+    user: "arthur",
     password: process.env.PG_PSWD,
     host: process.env.PG_HOST,
     database: "venues_db",

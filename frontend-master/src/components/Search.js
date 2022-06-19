@@ -241,11 +241,11 @@ class Search extends React.Component {
 													</TableCell>
 												</TableRow>
 											</TableHead>
-											<Results 
+											<Results class="graph"  
 												results={ Api.paginate_results(this.state.data, this.state.current_page, this.state.rows_per_page) } 
 												iconMore={ <NavigateNextIcon /> }
 												iconLess={ <ExpandMoreIcon /> } />
-									</Table>class="graph"
+									</Table>
 								</TableContainer>
 								<TablePagination
 									rowsPerPageOptions={[20]}

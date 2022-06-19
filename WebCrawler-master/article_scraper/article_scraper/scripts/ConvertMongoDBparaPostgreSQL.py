@@ -225,6 +225,7 @@ def get_data(db, col_name, begin):
         pprint(article)
 
         venue     = insert_venue      (db, col_name, article['publication_id'])
+        print(" passou")
         _article_ = insert_article    (db, col_name, article, venue)
         _authors_ = insert_authors    (db, col_name, article['_id'])
         keywords  = insert_keywords   (db, col_name, article['keywords'])
@@ -244,9 +245,9 @@ def get_data(db, col_name, begin):
 def main():
     db = setup()
     stats(db)
+    start = 0
 
     col_name = 'ieeex' # aqui tem que por o nome dos dados coletados, no caso coloquei acm pois estou extraindo os dados da ACM vindos do mongoDB para o SQL
-    start = 0
     get_data(db, col_name, start)
 
 if __name__ == "__main__": main()

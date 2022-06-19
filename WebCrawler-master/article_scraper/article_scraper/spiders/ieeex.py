@@ -1,6 +1,8 @@
 # scrapy crawl ieeex > /home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/output/ban/ieeex.data
 from curses import meta
 import scrapy
+from pathlib import Path
+import os
 
 import html
 import json
@@ -12,9 +14,13 @@ from pymongo import MongoClient
 
 class IEEEX_Spider(scrapy.Spider):
     name = "ieeex"
+
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, '../input/All-links/ieeexlinks')
+   
     
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/ieeexlinks'
-    with open(filepath, "r") as f:
+    #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/ieeexlinks'
+    with open(filename, "r") as f:
         start_urls = [url.strip() for url in f.readlines()] 
         #start_urls = ['https://ieeexplore.ieee.org/document/1028749'] # usado para correcao d codigo
 
@@ -364,5 +370,6 @@ class IEEEX_Spider(scrapy.Spider):
         
         
         database = 'venues' # tirei comentario pra extrair dados pro MONGODB [FRED]
-        self.save(database, authors, article, publication) # tirei comentario pra extrair dados pro MONGODB [FRED]
         self.debug_print(authors, article, publication)
+        #self.save(database, authors, article, publication) # tirei comentario pra extrair dados pro MONGODB [FRED]
+        

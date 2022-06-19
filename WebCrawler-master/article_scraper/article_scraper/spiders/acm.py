@@ -1,5 +1,7 @@
 # scrapy crawl acm > output/ban/acm.data
 import scrapy
+from pathlib import Path
+import os
 
 import json
 import requests
@@ -16,8 +18,10 @@ import pprint
 class ACM_Spider(scrapy.Spider):
     name = "acm"
 
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/acmlinks' #'/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/10-acm.links' 
-    with open(filepath, "r") as f:
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, '../input/All-links/acmlinks')
+   
+    with open(filename, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
     start_urls = list(filter(lambda url: not 'proceedings' in url, start_urls))
     
@@ -281,6 +285,5 @@ class ACM_Spider(scrapy.Spider):
 
         
         database = 'venues'
-        self.save(database, authors, article, publication)
         self.debug_print(authors, article, publication) # vai imprimir oq ta sendo pego no console durante o crawl
-        
+        self.save(database, authors, article, publication)

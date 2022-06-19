@@ -1,17 +1,15 @@
-1) CREATE DATABASE venues_db;
-2) \c venues_db arthur
-3) CREATE USER "arthur";
-4) ALTER USER arthur WITH PASSWORD 'senha';
-5) ALTER USER arthur WITH SUPERUSER;
-6) \du
-7) ALTER SEQUENCE authors_author_id_seq RESTART WITH 1;
-
+CREATE DATABASE venues_db;
+CREATE USER "arthur";
+ALTER USER arthur WITH PASSWORD 'senha';
+ALTER USER arthur WITH SUPERUSER;
+\c venues_db arthur
 
 CREATE TABLE venues (
    venue_id  serial   PRIMARY KEY,
    title       VARCHAR (500)  NOT NULL,
    publisher   VARCHAR (100)  NOT NULL,
-   link        VARCHAR (250)  NOT NULL
+   link        VARCHAR (250)  NOT NULL,
+   tipo        VARCHAR (100)
 );
 
 CREATE TABLE articles (
@@ -23,8 +21,8 @@ CREATE TABLE articles (
    doi         VARCHAR  (100),
    link        VARCHAR  (100),
    tipo        VARCHAR  (100),
-
-   fk_venue  int   REFERENCES  venues  (venue_id)
+   fk_venue  int   REFERENCES  venues  (venue_id),
+   date_formatted        VARCHAR  (100)
 );
 
 CREATE TABLE keywords(

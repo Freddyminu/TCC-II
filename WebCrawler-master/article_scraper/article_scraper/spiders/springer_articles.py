@@ -1,5 +1,5 @@
 # scrapy crawl springer_articles > output/ban/springer-articles.data
-
+import os
 import scrapy
 import logging
 import requests
@@ -12,8 +12,12 @@ from scrapy.crawler import CrawlerProcess
 class ACM_Article_Spider(scrapy.Spider):
     name = "springer_articles"
     
-    filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
-    with open(filepath, "r") as f:
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, '../input/All-links/springerlinks')
+   
+    
+    #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
+    with open(filename, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
     start_urls = list(filter (lambda u: 'link.springer.com/article/' in u, start_urls))
 
@@ -284,5 +288,5 @@ class ACM_Article_Spider(scrapy.Spider):
 
         
         database = 'venues' #tirei comentario [fred]
-        self.save(database, authors, article, publication) #tirei comentario [fred]
         self.debug_print(authors, article, publication) #tirei comentario [fred]
+        #self.save(database, authors, article, publication) #tirei comentario [fred]
