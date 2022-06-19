@@ -18,7 +18,7 @@ html, body {
   min-height: 40px;
   line-height: 40px;
 
-  border-bottom: 1px solid black
+  border-bottom: 1px solid#b9babd
 
 }
 
@@ -331,7 +331,7 @@ html, body {
   margin: 10px auto;
 
   resize: both;
-  /* overflow: auto; */
+  /*overflow: auto;*/
 }
 
 .graph:hover {
@@ -394,7 +394,7 @@ label{
 
 .highlight {
   background-color  : #FAFBFF;
-  border: solid black;
+  border: solid #b9babd;
   border-top: none;
   border-bottom: none;
   border-width: 1px;

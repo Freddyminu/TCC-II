@@ -50,7 +50,7 @@ function getAuthorData(data){
 function getGraphConfig() {
     const graphConfig = {
         nodeHighlightBehavior: true,
-        width:  800,
+        width:  1200,
         height: 600,
         maxZoom: 80,
         minZoom: 0.1,

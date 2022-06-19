@@ -37,11 +37,12 @@ const ItemContainer = (props) => {
     return (
         <div class="item-container">
             <div class="item-title" onClick={showResults ? null : toggleResults}>
-                <div 
+                <button 
+                role="button"  
                     class="expand-button" 
                     onClick={toggleResults} >
                         {!showResults ? props.iconMore : props.iconLess}
-                </div>
+                </button>
                 <b> Título: </b>
                 <div> {props.item.title} </div>
             </div>
