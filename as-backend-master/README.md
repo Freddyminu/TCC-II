@@ -1,3 +1,5 @@
+# Backend
+
 Essa é a API que é utilizada pelo Frontend. 
 
 Esta ferramenta foi desenvolvida por Arthur Schuelter como Trabalho de Conclusão de Curso para o curso de Bacharelado em Ciência da Computação da UDESC. O objetivo dessa ferramenta é auxiliar a busca de artigos científicos para pesquisadores da área de Ciência da Computação. Os artigos foram coletados da base da DBLP e representam um subconjunto dos artigos disponíveis na DBLP. Foram selecionados periódicos e eventos das sub-áreas de IHC-Interação Humano Computador e BD-Banco de Dados.
