@@ -83,13 +83,15 @@ scrapy crawl springer_articles
 >Os crawlers estão configurados inicialmente de forma não salvar os dados extraídos na base de dados MongoDB. Para salvar os dados extraídos é preciso tirar o comentário da ultima linha de cada crawler.
 
 # Base de Dados
-O funcionamento da base de dados é da seguinte maneira. O crawler acessa a página para extrair as informações, estas informações são enviadas para a base de dados MongoDB e depois apos finalizar a extração de dados é preciso executar o script *ConvertMongoDBparaPostgreSQL.py* para realizar a conversão dos dados do MongoDB para a base de dados PostgreSQL, que é a base que o Frontend utiliza.
+O funcionamento da base de dados é da seguinte maneira. O crawler acessa a página para extrair as informações, estas informações são enviadas para a base de dados MongoDB e depois apos finalizar a extração de dados é preciso executar o script *ConvertMongoDBparaPostgreSQL.py* para realizar a conversão dos dados do MongoDB para a base de dados PostgreSQL, que é a base que o Frontend utiliza. Depois disso é preciso executar as scripts *scipt_criarTipo.py* e *script_converterDatas.py*, somente depois disso é possivel utilizar a base de dados com o backend.
 
 ### - Instalação do [MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
 ```
 wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
 
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubu
+ntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sourc
+ses.list.d/mongodb-org-5.0.list
 
 sudo apt-get update
 
@@ -106,7 +108,9 @@ sudo service mongod restart
 
 ### - Instalação do [PostgreSQL](https://www.postgresql.org/download/linux/ubuntu/) 
 ```
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/rep
+os/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources
+.list.d/pgdg.list'
 
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 
