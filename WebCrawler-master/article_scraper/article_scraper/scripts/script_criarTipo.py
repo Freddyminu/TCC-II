@@ -132,7 +132,7 @@ def venue_tipo(result):
 
 def main():
     start = 1
-    end   = 2000
+    end   = 20000
     for index in range(start, end):
         result = retrieve_data(select_query_venue, [index])
         if (not result == None and result[0] != ""):

@@ -14,7 +14,7 @@ class ACM_Chapter_Spider(scrapy.Spider):
     name = "springer_chapters"
 
     dirname = os.path.dirname(__file__)
-    filename = os.path.join(dirname, '../input/All-links/springerlinks')
+    filename = os.path.join(dirname, '../input/10-springer.links')
    
     #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
     with open(filename, "r") as f:
@@ -26,14 +26,17 @@ class ACM_Chapter_Spider(scrapy.Spider):
     # ======= Articles =======
 
     def extract_abstract(self, response):
-        xpath_string = "//p[@class='Para']/text()"
-        abstract = response.xpath(xpath_string).getall()
-        abstract = ''.join(abstract)
+        # //*[@id="Abs1-content"]/p[1]
+        xpath_string = "//div[@class='c-article-section__content']/p[1]"
+        my_html = str(response.xpath(xpath_string).getall())
+        soup = BeautifulSoup(my_html, 'lxml')
+        abstract = soup.find_all('p')[1].text
         
         return str(abstract)
 
     def extract_book(self, response):
-        xpath_string = "//a[@class='gtm-book-series-link']/text()"
+        xpath_string = "//p[@class='c-chapter-book-series']/a/text()"
+
         book = response.xpath(xpath_string).getall()
         book = ''.join(book)
 
@@ -42,18 +45,19 @@ class ACM_Chapter_Spider(scrapy.Spider):
     def extract_date(self, response):
         xpath_string = "//time/text()"
         date = response.xpath(xpath_string).getall()
-        date = ''.join(date)
+        
 
-        return str(date)
+        return str(date[0])
 
     def extract_doi(self, response):
-        xpath_string = "//span[@id='doi-url']/text()"
+        #//*[@id="chapter-info-content"]/div/div/ul[2]/li[1]/p/span[2]
+        xpath_string = "//span[@class='c-bibliographic-information__value']/text()"
         doi = response.xpath(xpath_string).get()
 
         return str(doi)
 
     def extract_journal(self, response):
-        xpath_string = "//span[@class='BookTitle']/a/text()"
+        xpath_string = "//a[@class='c-chapter-book-details__title']/text()"
         journal = response.xpath(xpath_string).getall()
         journal = ''.join(journal)
 
@@ -61,7 +65,7 @@ class ACM_Chapter_Spider(scrapy.Spider):
 
     def extract_keywords(self, response):
         keywords = []
-        for keyword_raw in response.xpath("//span[@class='Keyword']").getall():
+        for keyword_raw in response.xpath("//li[@class='c-article-subject-list__subject']").getall():
             current_keyword = self.remove_tags(keyword_raw)
             current_keyword = unicodedata.normalize("NFKD", current_keyword)
             keywords.append(current_keyword)
@@ -83,14 +87,16 @@ class ACM_Chapter_Spider(scrapy.Spider):
 
     def extract_references(self, response):
         references = []
-        for references_raw in response.xpath("//li[@class='Citation']").getall():
+        for references_raw in response.xpath("//li[@class='c-article-references__item js-c-reading-companion-references-item']").getall():
             current_reference = self.remove_tags(references_raw)
+            current_reference = current_reference.replace("Google Scholar", "")
+            current_reference = current_reference.strip()
             references.append(current_reference)
 
         return references
 
     def extract_title(self, response):
-        xpath_string = "//h1[@class='ChapterTitle']/text()"
+        xpath_string = "//h1[@class='c-article-title']/text()"
         title = response.xpath(xpath_string).getall()
         title = ''.join(title)
 
@@ -143,18 +149,18 @@ class ACM_Chapter_Spider(scrapy.Spider):
 
 
     def extract_publication_publisher(self, response):
-        xpath_string = "//span[@id='publisher-name']/text()"
+        xpath_string = "//p[@data-test='bibliographic-information__publisher-name']/span[2]/text()"
         publisher = response.xpath(xpath_string).getall()
         publisher = ''.join(publisher)
 
         return str(publisher)
 
     def extract_publication_title(self, response):
-        xpath_string = "//span[@class='BookTitle']/a/text()"
-        publisher = response.xpath(xpath_string).getall()
-        publisher = ''.join(publisher)
+        xpath_string = "//a[@class='c-chapter-book-details__title']/text()"
+        journal = response.xpath(xpath_string).getall()
+        journal = ''.join(journal)
 
-        return str(publisher)
+        return str(journal)
     
     def extract_publication_link(self, response):
         return response.request.url
@@ -174,7 +180,7 @@ class ACM_Chapter_Spider(scrapy.Spider):
         print("\nTitle:", article['title'])
         print("\nAbstract:", article['abstract'])
         print("Date:", article['date'])
-        print("Pages:", article['pages'])
+        #print("Pages:", article['pages'])
         print("DOI:", article['doi'])
         print("Book:", article['book'])
         print("Journal:", article['journal'])
@@ -274,6 +280,7 @@ class ACM_Chapter_Spider(scrapy.Spider):
         article = {}
         authors = []
         publication = {}
+        article['pages'] = []
 
         article['abstract']   = self.extract_abstract(response)
         article['book']       = self.extract_book(response)
@@ -282,7 +289,7 @@ class ACM_Chapter_Spider(scrapy.Spider):
         article['journal']    = self.extract_journal(response) # Returns ''
         article['keywords']   = self.extract_keywords(response)
         article['link']       = self.extract_link(response)
-        article['pages']      = self.extract_pages(response)
+        #article['pages']      = self.extract_pages(response)
         article['references'] = self.extract_references(response)
         article['title']      = self.extract_title(response)
         
