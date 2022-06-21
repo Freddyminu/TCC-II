@@ -35,6 +35,7 @@ class ACM_Chapter_Spider(scrapy.Spider):
         return str(abstract)
 
     def extract_book(self, response):
+
         xpath_string = "//p[@class='c-chapter-book-series']/a/text()"
 
         book = response.xpath(xpath_string).getall()
