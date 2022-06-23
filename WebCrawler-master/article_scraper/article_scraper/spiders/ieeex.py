@@ -121,7 +121,7 @@ class IEEEX_Spider(scrapy.Spider):
         key_end   = 'endPage'
 
         if ( (key_start not in metadata) or (key_end not in metadata)):
-            return "0"
+            return "Não informado"
 
         start_page = metadata[key_start]
         end_page = metadata[key_end]

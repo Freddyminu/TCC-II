@@ -14,8 +14,8 @@ class ACM_Chapter_Spider(scrapy.Spider):
     name = "springer_chapters"
 
     dirname = os.path.dirname(__file__)
-    filename = os.path.join(dirname, '../input/10-springer.links')
-   
+    filename = os.path.join(dirname, '../input/All-links/springerlinks')
+    # WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks
     #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
     with open(filename, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]

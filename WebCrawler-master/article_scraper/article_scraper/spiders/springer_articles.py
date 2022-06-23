@@ -15,7 +15,7 @@ class ACM_Article_Spider(scrapy.Spider):
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, '../input/All-links/springerlinks')
    
-    
+    #WebCrawler-master/article_scraper/article_scraper/input/10-springer.links
     #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
     with open(filename, "r") as f:
         start_urls = [url.strip() for url in f.readlines()]
@@ -32,7 +32,12 @@ class ACM_Article_Spider(scrapy.Spider):
         return str(abstract)
 
     def extract_book(self, response):
-        return ""
+        xpath_string = "//p[@class='c-chapter-book-series']/a/text()"
+
+        book = response.xpath(xpath_string).getall()
+        book = ''.join(book)
+
+        return str(book)
 
     def extract_date(self, response):
         xpath_string = "//time/text()"

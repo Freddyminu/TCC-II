@@ -21,8 +21,8 @@ class ACM_Spider(scrapy.Spider):
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, '../input/All-links/acmlinks')
    
-    with open(filename, "r") as f:
-        start_urls = [url.strip() for url in f.readlines()]
+    #with open(filename, "r") as f:
+    start_urls = ['https://dl.acm.org/doi/10.1145/2071880.2071892']
     start_urls = list(filter(lambda url: not 'proceedings' in url, start_urls))
     
     ##############################################
@@ -81,16 +81,9 @@ class ACM_Spider(scrapy.Spider):
         return pages
 
     def extract_references(self, response):
-        references = []
-        for references_raw in response.xpath("//span[@class='references__note']"):
-            current_reference = ""
-            nodes = references_raw.xpath("./descendant::text()").getall()
-            for n in nodes[0:-1]:
-                current_reference += n
-            
-            if( current_reference not in references):
-                references.append(current_reference )
 
+        xpath_string = "//ol[@class='rlist references__list references__numeric']/li/span/text()"
+        references = response.xpath(xpath_string).getall()
         return references
 
     def extract_title(self, response):
@@ -286,4 +279,4 @@ class ACM_Spider(scrapy.Spider):
         
         database = 'venues'
         self.debug_print(authors, article, publication) # vai imprimir oq ta sendo pego no console durante o crawl
-        self.save(database, authors, article, publication)
+        #self.save(database, authors, article, publication)
