@@ -28,11 +28,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputUnstyled from '@mui/base/InputUnstyled';
 import MicOff from '@mui/icons-material/MicOff';
 
+
+
 function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBeginDate, setEndDate, setShowGraph, show_loading }) {
 	
-	var useSpeechRecognition2 = useSpeechRecognition.bind({});
-	var useSpeechRecognition3 = useSpeechRecognition.bind({});
 	/* acho que é questao que eles todos chamam a mesma função, teria q mudar isso talvez*/
+	
 
 	/*variaveis do voice do microfone de Keywords*/
 	const {
@@ -41,46 +42,26 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 		resetTranscript,
 		browserSupportsSpeechRecognition
 	} = useSpeechRecognition();
-	/*variaveis do voice do microfone de Authors*/
-	const {
-		transcript: transcriptAuthors,
-		listening: listeningAuthors,
-		resetTranscript: resetTranscriptAuthors,
-		browserSupportsSpeechRecognition: browserSupportsSpeechRecognitionAuthors
-	} = useSpeechRecognition2();
-	/*variaveis do voice do microfone de Periodicos*/
-	const {
-		transcript: transcriptPeridicos,
-		listening: listeningPeridicos,
-		resetTranscript: resetTranscriptPeridicos,
-		browserSupportsSpeechRecognition: browserSupportsSpeechRecognitionPeridicos
-	} = useSpeechRecognition3();
-
 
 	/*useState do voice do microfone de Keywords*/
 	const [text, setText] = useState(transcript);
 	/*useState do voice do microfone de Authors*/
-	const [text2, setText2] = useState(transcriptAuthors);
+	const [textAuthors, setTextAuthor] = useState('');
 	/*useState do voice do microfone de Periodicos*/
-	const [text3, setText3] = useState(transcriptPeridicos);
+	const [textPeridicos, setTextPeridicos] = useState('');
+	
+	
+	const [fieldSetter, setFieldSetter] = useState(() => () => {});
+	const [targetSetter, setTargetSetter] = useState(() => () => {});
 
 
 	/*useEffect do voice do microfone de Keywords*/
 	useEffect(() => {
-		setSearchField({ target: { value: transcript } })
-		setText(transcript)
+		fieldSetter({ target: { value: transcript } })
+		targetSetter(transcript)
 	}, [transcript]);
-	/*useEffect do voice do microfone de Authors*/
-	useEffect(() => {
-		setAuthorField({ target: { value: transcriptAuthors } })
-		setText2(transcriptAuthors)
-	}, [transcriptAuthors]);
-	/*useEffect do voice do microfone de Periodicos*/
-	useEffect(() => {
-		setVenue({ target: { value: transcriptPeridicos } })
-		setText3(transcriptPeridicos)
-	}, [transcriptPeridicos]);
 
+	
 
 	return (
 		<Grid container spacing={2}>
@@ -95,7 +76,6 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 										id="busca" label="Palavras-chave *"
 										type='text'
 										value={text}
-										placeholder={transcript}
 										name='q'
 										variant="outlined"
 										fullWidth
@@ -117,8 +97,16 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 									
 									<div className="Sound"> 
 										{listening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
-										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="small" /> </IconButton>
-										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="small" /></IconButton>
+										<IconButton onClick={() => {
+											setTargetSetter(() => setText);
+											setFieldSetter(() => setSearchField);
+											SpeechRecognition.startListening();
+										}}>
+											<MicIcon fontSize="small" />
+										</IconButton>
+										<IconButton onClick={SpeechRecognition.stopListening}>
+											<MicOff fontSize="small" />
+										</IconButton>
 									</div>
 								</Grid>
 								
@@ -129,22 +117,26 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 										id="autores" label="Autores"
 										type='text'
 										name='author-filter'
-										value={text2}
-										placeholder={transcriptAuthors}
+										value={textAuthors}
 										variant="outlined"
 										fullWidth
 										InputLabelProps={{ shrink: true }}
 										onChange={e => {
 											const value = e.target.value
 											console.log(value)
-											setText2(value)
+											setTextAuthor(value)
 											setAuthorField(e)
 										}} />
 								</Grid>
 								<Grid item xs={1}>
 									<div className="Sound">
-										{listeningAuthors ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
-										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="small" /> </IconButton>
+										{listening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
+										<IconButton onClick={() => {
+											setTargetSetter(() => setTextAuthor);
+											setFieldSetter(() => setAuthorField);
+											SpeechRecognition.startListening();
+										}} 
+									> <MicIcon fontSize="small" /> </IconButton>
 										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="small" /></IconButton>
 									</div>
 								</Grid>
@@ -154,22 +146,25 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 										id="venues" label="Periódicos/Eventos"
 										type='text'
 										name='venue-filter'
-										value={text3}
-										placeholder={transcriptPeridicos}
+										value={textPeridicos}	
 										variant="outlined"
 										fullWidth
 										InputLabelProps={{ shrink: true }}
 										onChange={e => {
 											const value = e.target.value
 											console.log(value)
-											setText3(value)
+											setTextPeridicos(value)
 											setVenue(e)
 										}} />
 								</Grid>
 								<Grid item xs={1}>
 									<div className="Sound">
-										{listeningPeridicos ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1 , color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
-										<IconButton onClick={SpeechRecognition.startListening} > <MicIcon fontSize="small" /> </IconButton>
+										{listening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1 , color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
+										<IconButton onClick={() => {
+											setTargetSetter(() => setTextPeridicos);
+											setFieldSetter(() => setVenue);
+											SpeechRecognition.startListening();
+										}} > <MicIcon fontSize="small" /> </IconButton>
 										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="small" /></IconButton>
 									</div>
 								</Grid>
