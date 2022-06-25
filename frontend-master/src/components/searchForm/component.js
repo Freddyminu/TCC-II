@@ -30,50 +30,54 @@ import MicOff from '@mui/icons-material/MicOff';
 
 function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBeginDate, setEndDate, setShowGraph, show_loading }) {
 	
-	/*variaveis do voice do Keywords*/
+	var useSpeechRecognition2 = useSpeechRecognition.bind({});
+	var useSpeechRecognition3 = useSpeechRecognition.bind({});
+	/* acho que é questao que eles todos chamam a mesma função, teria q mudar isso talvez*/
+
+	/*variaveis do voice do microfone de Keywords*/
 	const {
 		transcript,
 		listening,
 		resetTranscript,
 		browserSupportsSpeechRecognition
 	} = useSpeechRecognition();
-	/*variaveis do voice do Authors*/
+	/*variaveis do voice do microfone de Authors*/
 	const {
 		transcript: transcriptAuthors,
 		listening: listeningAuthors,
 		resetTranscript: resetTranscriptAuthors,
 		browserSupportsSpeechRecognition: browserSupportsSpeechRecognitionAuthors
-	} = useSpeechRecognition();
-	/*variaveis do voice do Periodicos*/
+	} = useSpeechRecognition2();
+	/*variaveis do voice do microfone de Periodicos*/
 	const {
 		transcript: transcriptPeridicos,
 		listening: listeningPeridicos,
 		resetTranscript: resetTranscriptPeridicos,
 		browserSupportsSpeechRecognition: browserSupportsSpeechRecognitionPeridicos
-	} = useSpeechRecognition();
+	} = useSpeechRecognition3();
 
 
-	/*useState do voice do Keywords*/
+	/*useState do voice do microfone de Keywords*/
 	const [text, setText] = useState(transcript);
-	/*useState do voice do Authors*/
+	/*useState do voice do microfone de Authors*/
 	const [text2, setText2] = useState(transcriptAuthors);
-	/*useState do voice do Periodicos*/
+	/*useState do voice do microfone de Periodicos*/
 	const [text3, setText3] = useState(transcriptPeridicos);
 
 
-	/*useEffect do voice do Keywords*/
+	/*useEffect do voice do microfone de Keywords*/
 	useEffect(() => {
 		setSearchField({ target: { value: transcript } })
 		setText(transcript)
 	}, [transcript]);
-	/*useEffect do voice do Authors*/
+	/*useEffect do voice do microfone de Authors*/
 	useEffect(() => {
-		setSearchField({ target: { value: transcriptAuthors } })
+		setAuthorField({ target: { value: transcriptAuthors } })
 		setText2(transcriptAuthors)
 	}, [transcriptAuthors]);
-	/*useEffect do voice do Periodicos*/
+	/*useEffect do voice do microfone de Periodicos*/
 	useEffect(() => {
-		setSearchField({ target: { value: transcriptPeridicos } })
+		setVenue({ target: { value: transcriptPeridicos } })
 		setText3(transcriptPeridicos)
 	}, [transcriptPeridicos]);
 
@@ -130,7 +134,12 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 										variant="outlined"
 										fullWidth
 										InputLabelProps={{ shrink: true }}
-										onChange={setAuthorField} />
+										onChange={e => {
+											const value = e.target.value
+											console.log(value)
+											setText2(value)
+											setAuthorField(e)
+										}} />
 								</Grid>
 								<Grid item xs={1}>
 									<div className="Sound">
@@ -150,7 +159,12 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 										variant="outlined"
 										fullWidth
 										InputLabelProps={{ shrink: true }}
-										onChange={setVenue} />
+										onChange={e => {
+											const value = e.target.value
+											console.log(value)
+											setText3(value)
+											setVenue(e)
+										}} />
 								</Grid>
 								<Grid item xs={1}>
 									<div className="Sound">
