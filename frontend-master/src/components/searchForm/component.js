@@ -31,10 +31,6 @@ import MicOff from '@mui/icons-material/MicOff';
 
 
 function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBeginDate, setEndDate, setShowGraph, show_loading }) {
-	
-	/* acho que é questao que eles todos chamam a mesma função, teria q mudar isso talvez*/
-	
-
 	/*variaveis do voice do microfone de Keywords*/
 	const {
 		transcript,
@@ -45,15 +41,21 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 
 	/*useState do voice do microfone de Keywords*/
 	const [text, setText] = useState(transcript);
+	const [textListening, setTextListening] = useState(false);
 	/*useState do voice do microfone de Authors*/
 	const [textAuthors, setTextAuthor] = useState('');
+	const [textAuthorsListening, setTextAuthorsListening] = useState(false);
 	/*useState do voice do microfone de Periodicos*/
 	const [textPeridicos, setTextPeridicos] = useState('');
-	
-	
-	const [fieldSetter, setFieldSetter] = useState(() => () => {});
-	const [targetSetter, setTargetSetter] = useState(() => () => {});
+	const [textPeridicosListening, setTextPeridicosListening] = useState(false);
 
+	const [fieldSetter, setFieldSetter] = useState(() => () => { });
+	const [targetSetter, setTargetSetter] = useState(() => () => { });
+	const turnOffListeningStates = () => {
+		setTextListening(false);
+		setTextAuthorsListening(false);
+		setTextPeridicosListening(false);
+	}
 
 	/*useEffect do voice do microfone de Keywords*/
 	useEffect(() => {
@@ -61,7 +63,11 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 		targetSetter(transcript)
 	}, [transcript]);
 
-	
+	useEffect(() => {
+		if(listening == false) {
+			turnOffListeningStates();
+		}
+	}, [listening]);
 
 	return (
 		<Grid container spacing={2}>
@@ -94,22 +100,28 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 										}} />
 								</Grid>
 								<Grid item xs={1}>
-									
-									<div className="Sound"> 
-										{listening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
+
+									<div className="Sound">
+										{textListening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
 										<IconButton onClick={() => {
 											setTargetSetter(() => setText);
 											setFieldSetter(() => setSearchField);
+											setTextAuthorsListening(false);
+											setTextPeridicosListening(false);
+											setTextListening(true);
 											SpeechRecognition.startListening();
 										}}>
 											<MicIcon fontSize="small" />
 										</IconButton>
-										<IconButton onClick={SpeechRecognition.stopListening}>
+										<IconButton onClick={() => {
+											setTextListening(false);
+											SpeechRecognition.stopListening();
+										}}>
 											<MicOff fontSize="small" />
 										</IconButton>
 									</div>
 								</Grid>
-								
+
 							</Grid>
 							<Grid container spacing={2}>
 								<Grid item xs={5}>
@@ -130,14 +142,21 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 								</Grid>
 								<Grid item xs={1}>
 									<div className="Sound">
-										{listening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
+										{textAuthorsListening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
 										<IconButton onClick={() => {
 											setTargetSetter(() => setTextAuthor);
 											setFieldSetter(() => setAuthorField);
+											setTextListening(false);
+											setTextPeridicosListening(false);
+											setTextAuthorsListening(true);
 											SpeechRecognition.startListening();
-										}} 
-									> <MicIcon fontSize="small" /> </IconButton>
-										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="small" /></IconButton>
+										}}
+										> <MicIcon fontSize="small" /> </IconButton>
+										<IconButton onClick={() => {
+											setTextAuthorsListening(false);
+											SpeechRecognition.stopListening();
+										}}
+										> <MicOff fontSize="small" /></IconButton>
 									</div>
 								</Grid>
 								<Grid item xs={5}>
@@ -146,7 +165,7 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 										id="venues" label="Periódicos/Eventos"
 										type='text'
 										name='venue-filter'
-										value={textPeridicos}	
+										value={textPeridicos}
 										variant="outlined"
 										fullWidth
 										InputLabelProps={{ shrink: true }}
@@ -159,13 +178,19 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 								</Grid>
 								<Grid item xs={1}>
 									<div className="Sound">
-										{listening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1 , color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
+										{textPeridicosListening ? <PlayCircleIcon className="paddingiconsound" sx={{ padding: 1, color: 'tomato' }} fontSize="small" /> : <PauseCircleIcon sx={{ padding: 1 }} fontSize="small" />}
 										<IconButton onClick={() => {
 											setTargetSetter(() => setTextPeridicos);
 											setFieldSetter(() => setVenue);
+											setTextListening(false);
+											setTextAuthorsListening(false);
+											setTextPeridicosListening(true);
 											SpeechRecognition.startListening();
 										}} > <MicIcon fontSize="small" /> </IconButton>
-										<IconButton onClick={SpeechRecognition.stopListening}> <MicOff fontSize="small" /></IconButton>
+										<IconButton onClick={() => {
+											setTextPeridicosListening(false);
+											SpeechRecognition.stopListening();
+										}}> <MicOff fontSize="small" /></IconButton>
 									</div>
 								</Grid>
 							</Grid>
@@ -217,7 +242,11 @@ function SearchForm({ runSearch, setSearchField, setAuthorField, setVenue, setBe
 									<Grid item xs={6}>
 										<Button
 											fullWidth
-											onClick={runSearch}
+											onClick={e => {
+												SpeechRecognition.stopListening();
+												turnOffListeningStates();
+												runSearch(e);
+											}}
 											disabled={show_loading}
 											color="primary"
 											variant="contained">
