@@ -140,7 +140,7 @@ def get_year(_date_):
 
 
 def main():
-    start = 10000
+    start = 1
     end   = 250000
     for index in range(start, end):
         try:

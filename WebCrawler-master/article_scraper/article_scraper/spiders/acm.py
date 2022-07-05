@@ -21,8 +21,9 @@ class ACM_Spider(scrapy.Spider):
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, '../input/All-links/acmlinks')
    
-    #with open(filename, "r") as f:
-    start_urls = ['https://dl.acm.org/doi/10.1145/2071880.2071892']
+
+    with open(filename, "r") as f:
+        start_urls = [url.strip() for url in f.readlines()]
     start_urls = list(filter(lambda url: not 'proceedings' in url, start_urls))
     
     ##############################################

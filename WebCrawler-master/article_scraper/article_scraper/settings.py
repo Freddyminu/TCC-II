@@ -18,7 +18,7 @@ NEWSPIDER_MODULE = 'article_scraper.spiders'
 #USER_AGENT = 'article_scraper (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules, se tu por FALSE pode ter problemas legais. 
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 8 tomei ban vou reduzir 

@@ -68,7 +68,7 @@ class ShowJournals extends Component {
 							<a href='/search'>Busca</a>
 						</Grid>
 						<Grid item xs={1} className="highlight" >
-							<a href='/periodicos'>Periódicos</a>
+							<a href='/periodicos'><b>Periódicos</b></a>
 						</Grid>
 						<Grid item xs={1} >
 							<a href='/eventos'>Eventos</a>

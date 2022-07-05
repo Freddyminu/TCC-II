@@ -245,7 +245,41 @@ def get_data(db, col_name, begin):
 def main():
     db = setup()
     #stats(db)
-    start = 0
+
+    #ieeex
+    #start = 0
+    #start = 9526
+    #start = 18162
+    #start = 26530
+    #start = 33236
+    #start = 40352
+    #start = 48414
+    #start = 56503
+    #finalizado
+
+    #ACM
+    #start = 0
+    #start = 9621
+    #start = 13340
+    #start = 16848
+    #start = 20418
+    #start = 24584
+    #start = 25143
+    #start = 28737
+    #start = 31815
+    #start = 35062
+    start = 37856
+
+
+
+    #springer
+    #sendo feito no convertmongo..Temporaty
+
+
+
+    #springer_chapters
+    #sendo feito no convertmongo...Springer_chapters
+
 
     col_name = 'acm' # aqui tem que por o nome dos dados coletados, no caso coloquei acm pois estou extraindo os dados da ACM vindos do mongoDB para o SQL
     get_data(db, col_name, start)

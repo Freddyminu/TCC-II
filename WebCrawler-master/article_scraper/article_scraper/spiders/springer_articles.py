@@ -13,7 +13,7 @@ class ACM_Article_Spider(scrapy.Spider):
     name = "springer_articles"
     
     dirname = os.path.dirname(__file__)
-    filename = os.path.join(dirname, '../input/All-links/springerlinks')
+    filename = os.path.join(dirname, '../input/All-links/springerLinkss')
    
     #WebCrawler-master/article_scraper/article_scraper/input/10-springer.links
     #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'

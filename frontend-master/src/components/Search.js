@@ -173,7 +173,7 @@ class Search extends React.Component {
 						<Grid container spacing={0} >
 							<Grid item xs={8} />
 							<Grid item xs={1} className="highlight" >
-								<a href='/search'>  Busca  </a>
+								<a href='/search'><b>Busca</b></a>
 							</Grid>
 							<Grid item xs={1} >
 								<a href='/periodicos'>  Periódicos </a>

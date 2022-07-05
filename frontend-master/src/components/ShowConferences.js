@@ -72,7 +72,7 @@ class ShowConferences extends Component {
 							<a href='/periodicos'>Periódicos</a>
 						</Grid>
 						<Grid item xs={1} className="highlight" >
-							<a href='/eventos'>Eventos</a>
+							<a href='/eventos'><b>Eventos</b></a>
 						</Grid>
 						<Grid item xs={1} >
 							<a href='/about' >Sobre</a>

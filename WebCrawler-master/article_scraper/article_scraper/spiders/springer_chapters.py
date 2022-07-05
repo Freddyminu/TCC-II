@@ -14,7 +14,7 @@ class ACM_Chapter_Spider(scrapy.Spider):
     name = "springer_chapters"
 
     dirname = os.path.dirname(__file__)
-    filename = os.path.join(dirname, '../input/All-links/springerlinks')
+    filename = os.path.join(dirname, '../input/All-links/springerLinkss')
     # WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks
     #filepath = '/home/fred/Desktop/TCC/WebCrawler-master/article_scraper/article_scraper/input/All-links/springerlinks'
     with open(filename, "r") as f:
@@ -44,10 +44,9 @@ class ACM_Chapter_Spider(scrapy.Spider):
         return str(book)
 
     def extract_date(self, response):
-        xpath_string = "//time/text()"
-        date = response.xpath(xpath_string).getall()
+        xpath_string = "//meta[@name='citation_publication_date']/@content"
         
-
+        date = response.xpath(xpath_string).getall()
         return str(date[0])
 
     def extract_doi(self, response):

@@ -22,17 +22,16 @@ connection = connect ( user="arthur",
                         host="127.0.0.1",
                         port="5432",
                         database="venues_db")
-cursor = connection.cursor()
 
-def retrieve_data(select_query, input_):
+def retrieve_data(select_query, input_, cursorr):
     input_ = list(map(lambda x: sanitize(str(x)), input_))
-    cursor.execute(select_query, input_)
-    data = cursor.fetchone()
+    cursorr.execute(select_query, input_)
+    data = cursorr.fetchone()
 
     return data
 
-def update_data(update_query, index):
-    cursor.execute(update_query, index)
+def update_data(update_query, index, cursorr):
+    cursorr.execute(update_query, index)
     connection.commit()
 
 select_query_tipo = """
@@ -131,33 +130,48 @@ def venue_tipo(result):
     return venue_tipo, int(result[5])
 
 def main():
-    start = 1
-    end   = 20000
-    for index in range(start, end):
-        result = retrieve_data(select_query_venue, [index])
-        if (not result == None and result[0] != ""):
-            print(index+1)
-            # inserindo o tipo de artigo em cada artigo...
-            tipodoartigo = make_query(result[0])
-            print("Tipo do artigo: ", tipodoartigo)
 
-            inserir = []
-            inserir.append(tipodoartigo)
-            inserir.append(index)
-            
-            update_data(update_query_tipo, inserir)
-            ###
-    # somente depois de pegar o tipo de todos os artigos
-    for index in range(start, end):   
-        result = retrieve_data(select_query_venue, [index])
-        if (not result == None and result[0] != ""):
-            
-            # pegar do artigo e colocar no venues
-            ve, ve_index = venue_tipo(result)
-            if (result[4] == None):
-                print("Escolha: ", ve)
-            if (not ve == '' ): 
-                update_data(update_query_venue, [ve, ve_index])
-            ###
+    cont = 1
+    start = 1
+    end = start + 500
+
+    while cont <= 280:
+        cursor = connection.cursor()
+        for index in range(start, end):
+            result = retrieve_data(select_query_venue, [index], cursor)
+            if (not result == None and result[0] != ""):
+                print(index+1)
+                # inserindo o tipo de artigo em cada artigo...
+                tipodoartigo = make_query(result[0])
+                print("Tipo do artigo: ", tipodoartigo)
+
+                inserir = []
+                inserir.append(tipodoartigo)
+                inserir.append(index)
+                
+                update_data(update_query_tipo, inserir, cursor)
+                ###
+        # somente depois de pegar o tipo de todos os artigos
+        for index in range(start, end):   
+            result = retrieve_data(select_query_venue, [index], cursor)
+            if (not result == None and result[0] != ""):
+                
+                # pegar do artigo e colocar no venues
+                ve, ve_index = venue_tipo(result)
+                if (result[4] == None):
+                    print("Escolha: ", ve)
+                if (not ve == '' ): 
+                    update_data(update_query_venue, [ve, ve_index], cursor)
+                ###
+                
+        start = start + 500
+        end = start + 500
+        cont = cont + 1
+
 
 if __name__ == "__main__": main()
+
+# utlimo inicio foi 2030
+# ultima parada foi em 6415
+# ultima parada foi em 6664
+# ultima copy foi em 23612

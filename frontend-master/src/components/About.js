@@ -5,7 +5,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-
 function About() {
 	return(
 		<div>
@@ -23,7 +22,7 @@ function About() {
 						<a href='/eventos'>Eventos</a>
 					</Grid>
 					<Grid item xs={1} className="highlight" >
-						<a href='/about' >Sobre</a>
+						<a href='/about' ><b>Sobre</b></a>
 					</Grid>
 				</Grid>
 			</div>

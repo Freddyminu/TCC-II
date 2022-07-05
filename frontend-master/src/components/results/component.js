@@ -58,7 +58,7 @@ const ItemContent = (props) => (
         <div class="data"> <b> DOI:        </b> <div> {props.data.doi}       </div> </div>
         <div class="data"> <b> Páginas:    </b> <div> {props.data.pages}     </div> </div>
         <div class="data"> <b> Data:       </b> <div> {props.data.date}      </div> </div>
-        <div class="data"> <b> Link:       </b> <div> <a href={props.data.link}>{props.data.link}</a> </div></div>
+        <div class="data"> <b> Link externo do artigo:       </b> <div> <a href={props.data.link}> Link do artigo </a> </div></div>
         <div class="data"> <b> Palavras-chave: </b> <div> {props.data.keywords}   </div> </div>
 
         <div class="data">
